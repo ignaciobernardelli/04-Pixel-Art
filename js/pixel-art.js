@@ -78,8 +78,20 @@ $("#grilla-pixeles").mousemove(function(event){
   }
 });
 
+// Borra la pantalla apretando un botón
+$("button#borrar").click(function(){
+  var $pixelesGrilla = $("#grilla-pixeles div");
+  $pixelesGrilla.animate({"background-color" : "white"},1000);
+});
+
+//Carga a los superhéroes en forma de píxeles
+$(".imgs img").click(function(event){
+  var $superheroe = ($(event.target).attr("id"));
+});
+
+
 /*Funciones
-$(elemento).click(function(){}) - captura el click en el elemento y ejecuta una Funciones
+$(elemento).click(function(){}) - captura el click en el elemento y ejecuta una Funcion
 $(elemento).mousedown(function) - captura cuando se presiona sobre el elemento y no se suelta
 $(elemento).mouseup(function) - captura cuando se suelta sobre el elemento
 $(elemento).mousemove(function) - captura cuando se mueve presionando sobre el elemento
