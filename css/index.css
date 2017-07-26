@@ -14,7 +14,7 @@ div {
   background-color: white;
   height: 15px;
   width: 15px;
-  display: inline-block;
+  display: inline-table;
   outline: 1px solid black;
   margin: 0;
   padding: 0;

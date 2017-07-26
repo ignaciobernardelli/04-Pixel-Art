@@ -45,7 +45,7 @@ function creaPaletaColores(){
 
 //Crea una función para generar la grilla de píxeles donde el usuario va a dibujar
 function creaGrillaPixeles(){
-  for (i=0;i < 1750;i++){
+  for (i=0;i < 1749;i++){
     $($grillapixeles).append('<div>');
     }
 };
