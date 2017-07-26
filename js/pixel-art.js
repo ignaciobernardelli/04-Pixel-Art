@@ -33,30 +33,30 @@ $colorPersonalizado.change(function() {
 
 // Mi codigo
 // Guarda a los elementos paleta y grilla-pixeles en dos variables, para después poder referinos a ellas
-var $paleta = $("#paleta").html();
-var $grillapixeles = $("#grilla-pixeles").html();
+var $paleta = $("#paleta");
+var $grillapixeles = $("#grilla-pixeles");
 
 //Crea una función para generar la paleta de colores
 function creaPaletaColores(){
   for (i=0;i < nombreColores.length;i++){
-    $("#paleta").append($('<div>', {"class": "color-paleta"}).css({"background-color": nombreColores[i]}));
+    $($paleta).append($('<div>', {"class": "color-paleta"}).css({"background-color": nombreColores[i]}));
     }
 };
 
 //Crea una función para generar la grilla de píxeles donde el usuario va a dibujar
 function creaGrillaPixeles(){
   for (i=0;i < 1750;i++){
-    $("#grilla-pixeles").append('<div>');
+    $($grillapixeles).append('<div>');
     }
 };
 
 //Crea una función para que, al hacer clic en algún color, el indicador-de-color cambie y refleje la selección.
-$("#paleta").click(function(event){
+$paleta.click(function(event){
     $("#indicador-de-color").css("background-color", $(event.target).css("background-color"));
 });
 
 //Crea una funcion para que el usuario pueda pintar un píxel al hacer clic en un cuadrado de la grilla.
-$("#grilla-pixeles").click(function(event){
+$grillapixeles.click(function(event){
     $(event.target).css("background-color", $("#indicador-de-color").css("background-color"));
 });
 
@@ -64,15 +64,15 @@ $("#grilla-pixeles").click(function(event){
 //Variable que nos diga si el botón del mouse está o no apretado
 var botonApretado = false
 
-$("#grilla-pixeles").mousedown(function(){
+$grillapixeles.mousedown(function(){
   botonApretado = true
 });
-$("#grilla-pixeles").mouseup(function(){
+$grillapixeles.mouseup(function(){
   botonApretado = false
 });
 
 // Funcion para poder pintar con el mouse muchos pixeles a la vez con sólo mantenerlo apretado y moviéndolo por la grilla.
-$("#grilla-pixeles").mousemove(function(event){
+$grillapixeles.mousemove(function(event){
   if (botonApretado == true){
     $(event.target).css("background-color", $("#indicador-de-color").css("background-color"));
   }
@@ -80,26 +80,30 @@ $("#grilla-pixeles").mousemove(function(event){
 
 // Borra la pantalla apretando un botón
 $("button#borrar").click(function(){
-  var $pixelesGrilla = $("#grilla-pixeles div");
-  $pixelesGrilla.animate({"background-color" : "white"},1000);
+  var divGrilla = $("#grilla-pixeles div")
+  divGrilla.each(function(){
+    $(this).animate({"background-color" : "white"},1000);
+  });
 });
 
 //Carga a los superhéroes en forma de píxeles
-$(".imgs img").click(function(event){
-  var $superheroe = ($(event.target).attr("id"));
+$(".imgs img").click(function(){
+  var nombreSuperHeroe = $(this).attr("id");
+  if (nombreSuperHeroe == "batman") {
+      cargarSuperheroe(batman)
+  } else if (nombreSuperHeroe == "flash") {
+      cargarSuperheroe(flash)
+  } else if (nombreSuperHeroe == "wonder") {
+      cargarSuperheroe(wonder)
+  } else {
+      cargarSuperheroe(invisible)
+  }
 });
 
+//Funcion de exportar la imagen del Pixel Art y descargarla en la computadora del usuario
+$("#guardar").click(function(){
+  guardarPixelArt();
+});
 
-/*Funciones
-$(elemento).click(function(){}) - captura el click en el elemento y ejecuta una Funcion
-$(elemento).mousedown(function) - captura cuando se presiona sobre el elemento y no se suelta
-$(elemento).mouseup(function) - captura cuando se suelta sobre el elemento
-$(elemento).mousemove(function) - captura cuando se mueve presionando sobre el elemento
-$(elemento).hover(function(){}, function(){}) - dos paramentros, primero que hace cuando ingresa
-al campo del elemento y el segundo parametro es para decirle que hacer cuando sale del
-campo del elemento.
-event.target()devuelve que elemento inicio el evento
-
-*/
 creaPaletaColores();
 creaGrillaPixeles();
